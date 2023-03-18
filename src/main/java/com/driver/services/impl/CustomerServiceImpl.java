@@ -47,37 +47,30 @@ public class CustomerServiceImpl implements CustomerService {
 		//Book the driver with lowest driverId who is free (cab available variable is Boolean.TRUE). If no driver is available, throw "No cab available!" exception
 		//Avoid using SQL query
 		List<Driver> driverList = driverRepository2.findAll();
-		Driver driver = null;
-		for(Driver CurrDriver : driverList){
-			if(CurrDriver.getCab().getAvailable()){
-				if(driver == null && driver.getDriverId() > CurrDriver.getDriverId()){
-					driver = CurrDriver;
-				}
+		for(Driver driver : driverList){
+			if(driver.getCab().getAvailable()){
+				driver.getCab().setAvailable(false);
+				TripBooking newTrip = new TripBooking();
+				Customer customer = customerRepository2.findById(customerId).get();
+				newTrip.setCustomer(customer);
+				newTrip.setDriver(driver);
+				newTrip.setFromLocation(fromLocation);
+				newTrip.setToLocation(toLocation);
+				newTrip.setDistanceInKm(distanceInKm);
+				int fair = distanceInKm * driver.getCab().getPerKmRate();
+				newTrip.setBill(fair);
+				newTrip.setStatus(TripStatus.CONFIRMED);
 
+				driver.getTripBookingList().add(newTrip);
+				customer.getTripBookingList().add(newTrip);
+
+				driverRepository2.save(driver);
+				customerRepository2.save(customer);
+				return newTrip;
 			}
 		}
 
-		if(driver == null){
-			throw new Exception("No cab available!");
-		}
-		driver.getCab().setAvailable(false);
-		TripBooking newTrip = new TripBooking();
-		Customer customer = customerRepository2.findById(customerId).get();
-		newTrip.setCustomer(customer);
-		newTrip.setDriver(driver);
-		newTrip.setFromLocation(fromLocation);
-		newTrip.setToLocation(toLocation);
-		newTrip.setDistanceInKm(distanceInKm);
-		int fair = distanceInKm * driver.getCab().getPerKmRate();
-		newTrip.setBill(fair);
-		newTrip.setStatus(TripStatus.CONFIRMED);
-
-		driver.getTripBookingList().add(newTrip);
-		customer.getTripBookingList().add(newTrip);
-
-		driverRepository2.save(driver);
-		customerRepository2.save(customer);
-		return newTrip;
+		throw new Exception("No cab available!");
 
 	}
 
