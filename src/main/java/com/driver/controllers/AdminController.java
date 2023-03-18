@@ -25,13 +25,13 @@ public class AdminController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Admin> updateAdminPassword(@RequestParam Integer adminId, @RequestParam String password) throws Exception {
+	public ResponseEntity<Admin> updateAdminPassword(@RequestParam Integer adminId, @RequestParam String password) {
 		Admin updatedAdmin = adminServiceImpl.updatePassword(adminId,password);
 		return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete")
-	public void deleteAdmin(@RequestParam Integer adminId) throws Exception {
+	public void deleteAdmin(@RequestParam Integer adminId) {
 		adminServiceImpl.deleteAdmin(adminId);
 	}
 

@@ -20,12 +20,12 @@ public class DriverController {
 	}
 	
 	@DeleteMapping(value = "/delete")
-	public void deleteDriver(@RequestParam Integer driverId) throws Exception {
+	public void deleteDriver(@RequestParam Integer driverId) {
 		driverServiceImpl.removeDriver(driverId);
 	}
 
 	@PutMapping("/status")
-	public void updateStatus(@RequestParam Integer driverId) throws Exception {
+	public void updateStatus(@RequestParam Integer driverId) {
 		driverServiceImpl.updateStatus(driverId);
 	}
 }

@@ -36,10 +36,9 @@ public class DriverServiceImpl implements DriverService {
 	}
 
 	@Override
-	public void removeDriver(int driverId) throws Exception {
+	public void removeDriver(int driverId) {
 		// Delete driver without using deleteById function
 		Driver driver = driverRepository3.findById(driverId).get();
-		if(driver == null)throw new Exception("Enter a valid driver Id");
 		Cab cab = driver.getCab();
 
 		cabRepository3.delete(cab);
@@ -49,10 +48,9 @@ public class DriverServiceImpl implements DriverService {
 	}
 
 	@Override
-	public void updateStatus(int driverId) throws Exception {
+	public void updateStatus(int driverId) {
 		//Set the status of respective car to unavailable
 		Driver driver = driverRepository3.findById(driverId).get();
-		if(driver == null) throw new Exception("Enter a valid driver Id");
 
 		driver.getCab().setAvailable(false);
 
