@@ -20,7 +20,7 @@ public class CustomerController {
 	}
 
 	@DeleteMapping("/delete")
-	public void deleteCustomer(@RequestParam Integer customerId){
+	public void deleteCustomer(@RequestParam Integer customerId) throws Exception {
 		customerServiceImpl.deleteCustomer(customerId);
 	}
 

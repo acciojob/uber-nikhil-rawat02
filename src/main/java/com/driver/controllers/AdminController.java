@@ -31,7 +31,7 @@ public class AdminController {
 	}
 
 	@DeleteMapping("/delete")
-	public void deleteAdmin(@RequestParam Integer adminId){
+	public void deleteAdmin(@RequestParam Integer adminId) throws Exception {
 		adminServiceImpl.deleteAdmin(adminId);
 	}
 
