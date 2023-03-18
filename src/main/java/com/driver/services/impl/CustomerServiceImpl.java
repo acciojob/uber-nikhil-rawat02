@@ -29,11 +29,8 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void register(Customer customer) {
 		//Save the customer in database
-		Customer newCustomer = new Customer();
-		newCustomer.setMobile(customer.getMobile());
-		newCustomer.setPassword(customer.getPassword());
 
-		customerRepository2.save(newCustomer);
+		customerRepository2.save(customer);
 
 	}
 
@@ -94,6 +91,7 @@ public class CustomerServiceImpl implements CustomerService {
 		driver.getCab().setAvailable(true);
 		driverRepository2.save(driver);
 
+		tripBookingRepository2.save(tripBooking);
 
 	}
 
@@ -108,7 +106,7 @@ public class CustomerServiceImpl implements CustomerService {
 		driver.getCab().setAvailable(true);
 		driverRepository2.save(driver);
 
-//		tripBookingRepository2.save(tripBooking);
+		tripBookingRepository2.save(tripBooking);
 
 	}
 }
